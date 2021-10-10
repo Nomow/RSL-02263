@@ -1,0 +1,40 @@
+Basics
+
+scheme Design =
+extend Basics with 
+class
+  value
+
+    plan: Families -~-> Plan
+    plan(fs) is recPlan(fs, fs, {}),
+
+    recPlan: Families >< Families >< Plan -~-> Plan
+    recPlan(originalFamilies, fs, p) is if fs = {} then
+				        p
+				  elsif fs = {{}} union without(fs, hd(fs)) then
+					recPlan(originalFamilies, without(fs,hd(fs)), p)
+				  else
+					recPlan(originalFamilies, without(fs,hd(fs)) union {without(hd(fs),hd(hd(fs)))}, addToPlan(originalFamilies, hd(hd(fs)), p))
+				  end,
+    
+    addToPlan: Families >< Person >< Plan -> Plan
+    addToPlan(fs, person, plan) is  if plan = {}
+		      then
+		           addToPlan(fs, person, plan union {{}})
+		      elsif containsFamilyMember(fs, person, hd(plan))
+		      then
+			   {hd(plan)} union addToPlan(fs, person, without(plan,hd(plan)))
+		      else 
+			   without(plan,hd(plan)) union {(hd(plan) union {person})}
+		      end,
+
+	containsFamilyMember: Families >< Person >< Table -> Bool
+	containsFamilyMember(fs, person, table) is (exists p : Person :- p isin table /\ areRelatives(person, p, fs)),
+
+	without: Text-set >< Text -> Text-set
+	without(set, element) is ({e | e : Text :- e ~= element /\ e isin
+	set}),
+
+	without: (Text-set)-set >< Text-set -> (Text-set)-set
+	without(set, element) is ({e | e : Text-set :- e ~= element /\ e isin set})
+end
