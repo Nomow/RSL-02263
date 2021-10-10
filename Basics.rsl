@@ -18,7 +18,7 @@ class
 
 
      isCorrectPlan : Plan >< Families -> Bool
-     isCorrectPlan(pl, fs) is if all t : Table, p1 : Person, p2 : Person :- isWellformed(fs) /\ t isin pl /\ p1 isin t /\ p2 isin t /\ areRelatives(p1, p2, fs) /\ card fs > 1 then true else false end
+     isCorrectPlan(pl, fs) is if all t : Table, p1 : Person, p2 : Person :- isWellformed(fs) /\ t isin pl /\ p1 isin t /\ p2 isin t /\ areRelatives(p1, p2, fs) /\ card t > 1 then true else false end
 
 
 
