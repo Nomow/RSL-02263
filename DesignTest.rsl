@@ -66,7 +66,7 @@ class
   /* signle family in Families */
   [t102] isWellformed(single_families) = true,
   /* reoccuring person in family in Families case */
-  [t103] isWellformed(reocc_in_family) = false,
+  [t103] isWellformed(reocc_in_family) = true,
   /* Empty family in Families */
   [t104] isWellformed(empty_family) = false,
   /* Same person in family in Families */
