@@ -18,12 +18,12 @@ class
 				  end,
     
     addToPlan: Families >< Person >< Plan -~-> Plan
-    addToPlan(fs, person, plan) is  if plan = {}
+    addToPlan(originalFamilies, person, plan) is  if plan = {}
 		      then
-		           addToPlan(fs, person, plan union {{}})
-		      elsif containsFamilyMember(fs, person, hd(plan))
+		           addToPlan(originalFamilies, person, plan union {{}})
+		      elsif containsFamilyMember(originalFamilies, person, hd(plan))
 		      then
-			   {hd(plan)} union addToPlan(fs, person, plan\{hd(plan)})
+			   {hd(plan)} union addToPlan(originalFamilies, person, plan\{hd(plan)})
 		      else 
 			   plan \ {hd(plan)} union {(hd(plan) union {person})}
 		      end,
