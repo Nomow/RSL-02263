@@ -39,16 +39,27 @@ class
     families : Families = {f1, f2, f3, f4}, /* good case True */
     reocc_in_family : Families = {f5, f2, f3, f4},  /* reoccuring in same family False */
     empty_family : Families = {f6, f2, f3, f4}, /* empty set False */
-    same_person_family : Families = {f7, f2, f3, f4} /* same person in 2 families False*/
-    single_families_single_person : Families = {f1} /* single family single person True */
-    single_families : Families = {f2} /* single family mutiple persons - True */
-    empty_families : Families = {} /* No family - True */
+    same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families False*/
+    single_families_single_person : Families = {f1}, /* single family single person True */
+    single_families : Families = {f2}, /* single family mutiple persons - True */
+    empty_families : Families = {} /* No family - False */
 
 
 /* Person relation tests */
 
   test_case 
-    ...
+	/* areRelatives */
+	/* p1 and p2 is from same family */
+	[t1] areRelatives(p2, p3, families) = true,
+	/* p1 and p2 are from different families */
+	[t2] areRelatives(p1, p2, families) = false,
+	/* p1 and p1 are from same family */
+	[t3] areRelatives(p1, p1, families) = false,
+	/* p1 is not in any family */
+	[t4] areRelatives(p1, p2, empty_family) = false
+
+
+
 
  end
  
