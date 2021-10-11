@@ -1,0 +1,52 @@
+Design
+
+scheme DesignTest =
+extend Design with 
+class
+  value 
+    /* Persons */
+
+    p1 : Person = "Elisabeth",
+    p2 : Person = "Lillian",
+    p3 : Person = "Erik",
+    p4 : Person = "Frederik",
+    p5 : Person = "Henrik",
+    p6 : Person = "Anne",
+    p7 : Person = "Lotte",
+    p8 : Person = "Torsten",
+    p9 : Person = "Camilla",
+    p10 : Person = "Jacob",
+    p11 : Person = "Pernille",
+
+    /* Family */
+    /* good ones  True*/
+    f1 : Family = {p1},
+    f2 : Family = {p2, p3},
+    f3 : Family = {p4, p5, p6},
+    f4 : Family = {p7, p8, p9, p10, p11},
+
+    /* reoccuring in same family False*/
+    f5 : Family = {p1, p1},
+
+    /* empty set */
+    f6 : Family = {},
+
+    /* same person in 2 families */
+    f7 : Family = {p1},
+
+
+    /* Family tests */
+    families : Families = {f1, f2, f3, f4}, /* good case True */
+    reocc_in_family = {f5, f2, f3, f4},  /* reoccuring in same family False */
+    empty_family = {f6, f2, f3, f4}, /* empty set */
+    same_person_family = {f7, f2, f3, f4} /* same person in 2 families */
+
+
+
+/* Person relation tests */
+
+  test_case 
+    ...
+
+ end
+ 
