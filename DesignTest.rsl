@@ -56,7 +56,23 @@ class
 	/* p1 and p1 are from same family */
 	[t3] areRelatives(p1, p1, families) = false,
 	/* p1 is not in any family */
-	[t4] areRelatives(p1, p2, empty_family) = false
+	[t4] areRelatives(p1, p2, empty_family) = false,
+
+  /* isWellformed */
+  /* correct case */
+  [t100] isWellformed(families) = true,
+  /* Single person signle family in Families */
+  [t101] isWellformed(single_families_single_person) = true,
+  /* signle family in Families */
+  [t102] isWellformed(single_families) = true,
+  /* reoccuring person in family in Families case */
+  [t103] isWellformed(reocc_in_family) = false,
+  /* Empty family in Families */
+  [t104] isWellformed(empty_family) = false,
+  /* Same person in family in Families */
+  [t105] isWellformed(same_person_family) = false,
+  /* Empty families */
+  [t106] isWellformed(empty_families) = false
 
 
 
