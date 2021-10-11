@@ -13,7 +13,7 @@ class
      
      isWellformed : Families -> Bool                  
      isWellformed(fs) is if card(fs) = 0 then false elsif card(fs) = 1 then card(hd(fs)) > 0 else let fx: Family :- fx isin fs, fy: Family :-
-     fy isin fs /\ fy ~= fx in (fx inter fy = {} /\ fx ~= {} /\ fy ~= {})
+     fy isin fs in (fy ~= fx /\ fx inter fy = {} /\ fx ~= {} /\ fy ~= {})
       end end,
 
      isCorrectPlan : Plan >< Families -> Bool
