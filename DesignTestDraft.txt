@@ -1,0 +1,41 @@
+isWellFormed
+
+{{"Elisabeth"},
+{"Lillian", "Erik"},
+{"Frederik", "Henrik", "Anne"},
+{"Lotte", "Torsten", "Camilla", "Jacob", "Pernille"}
+} - true
+
+{{"Elisabeth", "Elisabeth"},
+{"Lillian", "Erik"},
+{"Frederik", "Henrik", "Anne"},
+{"Lotte", "Torsten", "Camilla", "Jacob", "Pernille"}
+} - false
+
+{{},
+{"Lillian", "Erik"},
+{"Frederik", "Henrik", "Anne"},
+{"Lotte", "Torsten", "Camilla", "Jacob", "Pernille"}
+} - false
+
+{{"Elisabeth", "Lillian"},
+{"Lillian", "Erik"},
+{"Frederik", "Henrik", "Anne"},
+{"Lotte", "Torsten", "Camilla", "Jacob", "Pernille"}
+} - false
+
+isCorrectPlan
+
+missing a member (m exists in Families but does not exist in the plan)
+repeating a member
+empty table
+working example
+a table with relatives
+
+areRelatives
+
+relatives
+not relatives
+same person twice
+people that do not exist in the family-set
+

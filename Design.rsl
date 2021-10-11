@@ -11,30 +11,24 @@ class
     recPlan: Families >< Families >< Plan -~-> Plan
     recPlan(originalFamilies, fs, p) is if fs = {} then
 				        p
-				  elsif fs = {{}} union without(fs, hd(fs)) then
-					recPlan(originalFamilies, without(fs,hd(fs)), p)
+				  elsif fs = {{}} union fs \ {hd(fs)} then
+					recPlan(originalFamilies, fs \ {hd(fs)}, p)
 				  else
-					recPlan(originalFamilies, without(fs,hd(fs)) union {without(hd(fs),hd(hd(fs)))}, addToPlan(originalFamilies, hd(hd(fs)), p))
+					recPlan(originalFamilies, fs \ {hd(fs)} union {hd(fs)\{hd(hd(fs))}}, addToPlan(originalFamilies, hd(hd(fs)), p))
 				  end,
     
-    addToPlan: Families >< Person >< Plan -> Plan
-    addToPlan(fs, person, plan) is  if plan = {}
+    addToPlan: Families >< Person >< Plan -~-> Plan
+    addToPlan(originalFamilies, person, plan) is  if plan = {}
 		      then
-		           addToPlan(fs, person, plan union {{}})
-		      elsif containsFamilyMember(fs, person, hd(plan))
+		           addToPlan(originalFamilies, person, plan union {{}})
+		      elsif containsFamilyMember(originalFamilies, person, hd(plan))
 		      then
-			   {hd(plan)} union addToPlan(fs, person, without(plan,hd(plan)))
+			   {hd(plan)} union addToPlan(originalFamilies, person, plan\{hd(plan)})
 		      else 
-			   without(plan,hd(plan)) union {(hd(plan) union {person})}
+			   plan \ {hd(plan)} union {(hd(plan) union {person})}
 		      end,
 
 	containsFamilyMember: Families >< Person >< Table -> Bool
-	containsFamilyMember(fs, person, table) is (exists p : Person :- p isin table /\ areRelatives(person, p, fs)),
+	containsFamilyMember(fs, person, table) is (exists p : Person :- p isin table /\ areRelatives(person, p, fs))
 
-	without: Text-set >< Text -> Text-set
-	without(set, element) is ({e | e : Text :- e ~= element /\ e isin
-	set}),
-
-	without: (Text-set)-set >< Text-set -> (Text-set)-set
-	without(set, element) is ({e | e : Text-set :- e ~= element /\ e isin set})
 end
