@@ -7,20 +7,13 @@ class
       Table = Person-set, 
       Plan = Table-set 
     
-  value /* auxilliary functions */ 
+  value 
      areRelatives : Person >< Person >< Families -> Bool 
-    /*   --                         Changed if statement before                        added that it includes that p1 and p2 is not the same*/ 
      areRelatives(p1, p2, fs) is if exists f : Family :- f isin fs /\ p1 isin f /\ p2 isin f /\ p1 ~= p2 then true else false end,
      
      isWellformed : Families -> Bool                  
-     /* Not sure can't get after such that if statement */                                                       
-     isWellformed(fs) is if all fx : Family, fy : Family :- fx isin fs  /\ fy isin fs /\ fx inter fy = {} /\ fx ~= fy then true else false end,
-
+     isWellformed(fs) is let fx: Family :- fx isin fs, fy: Family :- fy isin fs in (fx inter fy = {} /\ fx ~=fy) end,
 
      isCorrectPlan : Plan >< Families -> Bool
-     isCorrectPlan(pl, fs) is if all t : Table, p1 : Person, p2 : Person :- isWellformed(fs) /\ t isin pl /\ p1 isin t /\ p2 isin t /\ areRelatives(p1, p2, fs) /\ card t > 1 then true else false end
-
-
-
-
+     isCorrectPlan(pl, fs) is let t: Table :- t isin pl, p1 : Person :- p1 isin t, p2 : Person :- p2 isin t in ~areRelatives(p1, p2, fs) end
 end
