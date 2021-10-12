@@ -54,9 +54,7 @@ class
     [t3] areRelatives(p1, p1, families) = false,
 
     /* p1 and p2 are not in any family */
-    [t4] areRelatives(p1, p2, empty_family) = false,
-    /* areRelatives end  */    
-
+    [t4] areRelatives(p1, p2, empty_family) = false,   
 
     /* isWellformed */
     /* correct case */
@@ -79,15 +77,15 @@ class
 
     /* Empty families */
     [t106] isWellformed(empty_families) = false,
-    /* isWellformed end  */
     
-
+    /* setUnion & setCard  */
+    /* setUnion of families  */
     [t205] setUnion(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
-	
+    /* setCard of families  */	
     [t206] setCard(families) = 11,
-	
+    /* setCard of same_person_family */	
     [t207] setCard(same_person_family) = 12,
-	
+    /* setUnion of same_person_family  */
     [t208] setUnion(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
  end
  
