@@ -72,9 +72,12 @@ class
   /* Same person in family in Families */
   [t105] isWellformed(same_person_family) = false,
   /* Empty families */
-  [t106] isWellformed(empty_families) = false
-
-
+  [t106] isWellformed(empty_families) = false,
+  
+  [t205] sh(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+  [t206] sh1(families) = 11,
+  [t207] sh1(same_person_family) = 12,
+  [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
 
 
  end

@@ -1,0 +1,1 @@
+(setq rsl-overlay-poss (list (list (rsl-lc-to-pos 19 31) (rsl-lc-to-pos 20 41)) (list (rsl-lc-to-pos 22 89) (rsl-lc-to-pos 22 95)) (list (rsl-lc-to-pos 22 79) (rsl-lc-to-pos 22 87)) (list (rsl-lc-to-pos 22 27) (rsl-lc-to-pos 22 98)) ))
