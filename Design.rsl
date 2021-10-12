@@ -9,23 +9,31 @@ class
     plan(fs) is recPlan(fs, fs, {}),
 
     recPlan: Families >< Families >< Plan -~-> Plan
-    recPlan(originalFamilies, fs, p) is if fs = {} then
-				        p
-				  elsif fs = {{}} union fs \ {hd(fs)} then
-					recPlan(originalFamilies, fs \ {hd(fs)}, p)
-				  else
-					recPlan(originalFamilies, fs \ {hd(fs)} union {hd(fs)\{hd(hd(fs))}}, addToPlan(originalFamilies, hd(hd(fs)), p))
+    recPlan(originalFamilies, fs, p) is let 
+				  firstFamily = hd(fs),
+				  firstFamilyMember = hd(firstFamily)
+				  in
+					if fs = {} then
+					   p
+					elsif fs = {{}} union fs \ {firstFamily} then
+					      recPlan(originalFamilies, fs \ {firstFamily}, p)
+					else
+					      recPlan(originalFamilies, fs \ {firstFamily} union {firstFamily\{firstFamilyMember}}, addToPlan(originalFamilies, firstFamilyMember, p))
+					end
 				  end,
     
     addToPlan: Families >< Person >< Plan -~-> Plan
-    addToPlan(originalFamilies, person, plan) is  if plan = {}
-		      then
+    addToPlan(originalFamilies, person, plan) is
+		      let
+			firstTable = hd(plan)
+		      in
+			if plan = {} then
 		           addToPlan(originalFamilies, person, plan union {{}})
-		      elsif containsFamilyMember(originalFamilies, person, hd(plan))
-		      then
-			   {hd(plan)} union addToPlan(originalFamilies, person, plan\{hd(plan)})
-		      else 
-			   plan \ {hd(plan)} union {(hd(plan) union {person})}
+			elsif containsFamilyMember(originalFamilies, person, firstTable) then
+			   {firstTable} union addToPlan(originalFamilies, person, plan\{firstTable})
+		        else 
+			   plan \ {firstTable} union {(firstTable union {person})}
+		      end 
 		      end,
 
 	containsFamilyMember: Families >< Person >< Table -> Bool
