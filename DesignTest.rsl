@@ -5,7 +5,6 @@ extend Design with
 class
   value 
     /* Persons */
-
     p1 : Person = "Elisabeth",
     p2 : Person = "Lillian",
     p3 : Person = "Erik",
@@ -19,75 +18,76 @@ class
     p11 : Person = "Pernille",
 
     /* Family */
-    /* good ones  True*/
+    /* Given example from project description */
     f1 : Family = {p1},
     f2 : Family = {p2, p3},
     f3 : Family = {p4, p5, p6},
     f4 : Family = {p7, p8, p9, p10, p11},
 
-    /* reoccuring in same family False*/
+    /* same person reoccuring in same family */
     f5 : Family = {p1, p1},
 
     /* empty set */
     f6 : Family = {},
 
-    /* same person in 2 families */
+    /* Extra family for same person in 2 families test */
     f7 : Family = {p1, p2},
 
-
     /* Families tests */
-    families : Families = {f1, f2, f3, f4}, /* good case True */
-    reocc_in_family : Families = {f5, f2, f3, f4},  /* reoccuring in same family False */
-    empty_family : Families = {f6, f2, f3, f4}, /* empty set False */
-    same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families False*/
-    single_families_single_person : Families = {f1}, /* single family single person True */
-    single_families : Families = {f2}, /* single family mutiple persons - True */
-    empty_families : Families = {}, /* No family - False */
-    same_family_in_families : Families = {f4, f4, f4},
-    same_family_in_families1 : Families = {f1, f1, f1}
-
-/* Person relation tests */
+    families : Families = {f1, f2, f3, f4}, /* good case - given example */
+    reocc_in_family : Families = {f5, f2, f3, f4},  /* same person reoccuring in same family */
+    empty_family : Families = {f6, f2, f3, f4}, /* empty set */
+    same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families */
+   single_families_single_person : Families = {f1}, /* single family, single person */
+   single_families : Families = {f2}, /* single family, mutiple persons */
+    empty_families : Families = {} /* No family */
 
   test_case 
-	/* areRelatives */
-	/* p1 and p2 is from same family */
-	[t1] areRelatives(p2, p3, families) = true,
-	/* p1 and p2 are from different families */
-	[t2] areRelatives(p1, p2, families) = false,
-	/* p1 and p1 are from same family */
-	[t3] areRelatives(p1, p1, families) = false,
-	/* p1 is not in any family */
-	[t4] areRelatives(p1, p2, empty_family) = false,
+    /* areRelatives */
+    /* p2 and p3 are from same family */
+    [t1] areRelatives(p2, p3, families) = true,
 
-  /* isWellformed */
-  /* correct case */
-  [t100] isWellformed(families) = true,
-  /* Single person signle family in Families */
-  [t101] isWellformed(single_families_single_person) = true,
-  /* signle family in Families */
-  [t102] isWellformed(single_families) = true,
-  /* reoccuring person in family in Families case */
-  [t103] isWellformed(reocc_in_family) = true,
-  /* Empty family in Families */
-  [t104] isWellformed(empty_family) = false,
-  /* Same person in family in Families */
-  [t105] isWellformed(same_person_family) = false,
-  /* Empty families */
-  [t106] isWellformed(empty_families) = false,
-  [t107] isWellformed(same_family_in_families) = true,
-  [t108] isWellformed(same_family_in_families1) = true,
+    /* p1 and p2 are from different families */
+    [t2] areRelatives(p1, p2, families) = false,
 
-  [t205] sh(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
-  [t206] sh1(families) = 11,
-  [t207] sh1(same_person_family) = 12,
-  [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
-  [t210] sh({f1, f1, f1, f1}) = {p1},
-  [t211] sh1({f1, f1, f1, f1}) = 1,
+    /* p1 and p1 are from same family */
+    [t3] areRelatives(p1, p1, families) = false,
 
-  [t229] sh(same_family_in_families) = {p7, p8, p9, p10, p11},
-  [t239] sh1(same_family_in_families) = 5,
-  [t240] card(hd(same_family_in_families)) = 5
+    /* p1 and p2 are not in any family */
+    [t4] areRelatives(p1, p2, empty_family) = false,
+    /* areRelatives end  */    
 
 
+    /* isWellformed */
+    /* correct case */
+    [t100] isWellformed(families) = true,
+
+    /* Single person, single family in Families */
+    [t101] isWellformed(single_families_single_person) = true,
+
+    /* single family in Families */
+    [t102] isWellformed(single_families) = true,
+
+    /* reoccuring person in family in Families */
+    [t103] isWellformed(reocc_in_family) = true,
+
+    /* Empty family in Families */
+    [t104] isWellformed(empty_family) = false,
+
+    /* Same person in 2 different family in Families */
+    [t105] isWellformed(same_person_family) = false,
+
+    /* Empty families */
+    [t106] isWellformed(empty_families) = false,
+    /* isWellformed end  */
+    
+
+    [t205] sh(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+	
+    [t206] sh1(families) = 11,
+	
+    [t207] sh1(same_person_family) = 12,
+	
+    [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
  end
  
