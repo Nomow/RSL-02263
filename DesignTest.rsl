@@ -42,8 +42,9 @@ class
     same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families False*/
     single_families_single_person : Families = {f1}, /* single family single person True */
     single_families : Families = {f2}, /* single family mutiple persons - True */
-    empty_families : Families = {} /* No family - False */
-
+    empty_families : Families = {}, /* No family - False */
+    same_family_in_families : Families = {f4, f4, f4},
+    same_family_in_families1 : Families = {f1, f1, f1}
 
 /* Person relation tests */
 
@@ -73,11 +74,19 @@ class
   [t105] isWellformed(same_person_family) = false,
   /* Empty families */
   [t106] isWellformed(empty_families) = false,
-  
+  [t107] isWellformed(same_family_in_families) = true,
+  [t108] isWellformed(same_family_in_families1) = true,
+
   [t205] sh(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
   [t206] sh1(families) = 11,
   [t207] sh1(same_person_family) = 12,
-  [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
+  [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+  [t210] sh({f1, f1, f1, f1}) = {p1},
+  [t211] sh1({f1, f1, f1, f1}) = 1,
+
+  [t229] sh(same_family_in_families) = {p7, p8, p9, p10, p11},
+  [t239] sh1(same_family_in_families) = 5,
+  [t240] card(hd(same_family_in_families)) = 5
 
 
  end
