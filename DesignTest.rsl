@@ -82,12 +82,12 @@ class
     /* isWellformed end  */
     
 
-    [t205] sh(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+    [t205] setUnion(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
 	
-    [t206] sh1(families) = 11,
+    [t206] setCard(families) = 11,
 	
-    [t207] sh1(same_person_family) = 12,
+    [t207] setCard(same_person_family) = 12,
 	
-    [t208] sh(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
+    [t208] setUnion(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11}
  end
  
