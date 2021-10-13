@@ -9,13 +9,16 @@ class
     plan(fs) is recPlan(fs, fs, {}),
 
     recPlan: Families >< Families >< Plan -~-> Plan
-    recPlan(originalFamilies, fs, p) is let 
-				  firstFamily = hd(fs),
-				  firstFamilyMember = hd(firstFamily)
+    recPlan(originalFamilies, fs, p) is let
+				     firstFamily = if fs ~= {} then
+				     hd(fs) else {} end,
+				     firstFamilyMember = if
+				     firstFamily ~= {} then
+				     hd(firstFamily) else "" end
 				  in
 					if fs = {} then
 					   p
-					elsif fs = {{}} union fs \ {firstFamily} then
+					elsif firstFamily = {} then
 					      recPlan(originalFamilies, fs \ {firstFamily}, p)
 					else
 					      recPlan(originalFamilies, fs \ {firstFamily} union {firstFamily\{firstFamilyMember}}, addToPlan(originalFamilies, firstFamilyMember, p))
@@ -25,7 +28,7 @@ class
     addToPlan: Families >< Person >< Plan -~-> Plan
     addToPlan(originalFamilies, person, plan) is
 		      let
-			firstTable = hd(plan)
+			firstTable = if plan ~= {} then hd(plan) else {} end
 		      in
 			if plan = {} then
 		           addToPlan(originalFamilies, person, plan union {{}})
