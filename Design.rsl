@@ -5,8 +5,9 @@ extend Basics with
 class
   value
 
-    plan: Families -~-> Plan
-    plan(fs) is recPlan(fs, fs, {}),
+    plan: {|fs : Families :- isWellformed(fs) = true|} -~-> Plan
+    plan(fs) is recPlan(fs, fs, {})
+    post isCorrectPlan(recPlan(fs, fs, {}), fs),
 
     recPlan: Families >< Families >< Plan -~-> Plan
     recPlan(originalFamilies, fs, p) is let
