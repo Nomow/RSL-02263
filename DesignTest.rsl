@@ -5,7 +5,6 @@ extend Design with
 class
   value 
     /* Persons */
-
     p1 : Person = "Elisabeth",
     p2 : Person = "Lillian",
     p3 : Person = "Erik",
@@ -19,63 +18,164 @@ class
     p11 : Person = "Pernille",
 
     /* Family */
-    /* good ones  True*/
+    /* Given example from project description */
     f1 : Family = {p1},
     f2 : Family = {p2, p3},
     f3 : Family = {p4, p5, p6},
     f4 : Family = {p7, p8, p9, p10, p11},
 
-    /* reoccuring in same family False*/
+    /* same person reoccuring in same family */
     f5 : Family = {p1, p1},
 
     /* empty set */
     f6 : Family = {},
 
-    /* same person in 2 families */
+    /* Extra family for same person in 2 families test */
     f7 : Family = {p1, p2},
 
-
     /* Families tests */
-    families : Families = {f1, f2, f3, f4}, /* good case True */
-    reocc_in_family : Families = {f5, f2, f3, f4},  /* reoccuring in same family False */
-    empty_family : Families = {f6, f2, f3, f4}, /* empty set False */
-    same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families False*/
-    single_families_single_person : Families = {f1}, /* single family single person True */
-    single_families : Families = {f2}, /* single family mutiple persons - True */
-    empty_families : Families = {} /* No family - False */
-
-
-/* Person relation tests */
+    families : Families = {f1, f2, f3, f4}, /* good case - given example */
+    reocc_in_family : Families = {f5, f2, f3, f4},  /* same person reoccuring in same family */
+    empty_family : Families = {f6, f2, f3, f4}, /* empty set */
+    same_person_family : Families = {f7, f2, f3, f4}, /* same person in 2 families */
+    single_families_single_person : Families = {f1}, /* single family, single person */
+    single_families : Families = {f2}, /* single family, mutiple persons */
+    empty_families : Families = {} /* No family */
 
   test_case 
-	/* areRelatives */
-	/* p1 and p2 is from same family */
-	[t1] areRelatives(p2, p3, families) = true,
-	/* p1 and p2 are from different families */
-	[t2] areRelatives(p1, p2, families) = false,
-	/* p1 and p1 are from same family */
-	[t3] areRelatives(p1, p1, families) = false,
-	/* p1 is not in any family */
-	[t4] areRelatives(p1, p2, empty_family) = false,
+    /* areRelatives */
+    /* p2 and p3 are from same family */
+    [t001] areRelatives(p2, p3, families) = true,
 
-  /* isWellformed */
-  /* correct case */
-  [t100] isWellformed(families) = true,
-  /* Single person signle family in Families */
-  [t101] isWellformed(single_families_single_person) = true,
-  /* signle family in Families */
-  [t102] isWellformed(single_families) = true,
-  /* reoccuring person in family in Families case */
-  [t103] isWellformed(reocc_in_family) = true,
-  /* Empty family in Families */
-  [t104] isWellformed(empty_family) = false,
-  /* Same person in family in Families */
-  [t105] isWellformed(same_person_family) = false,
-  /* Empty families */
-  [t106] isWellformed(empty_families) = false
+    /* p1 and p2 are from different families */
+    [t002] areRelatives(p1, p2, families) = false,
+
+    /* p1 and p1 are from same family */
+    [t003] areRelatives(p1, p1, families) = false,
+
+    /* p1 and p2 are not in any family */
+    [t004] areRelatives(p1, p2, empty_family) = false,   
 
 
+    /* isWellformed */
+    /* correct case */
+    [t100] isWellformed(families) = true,
 
+    /* Single person, single family in Families */
+    [t101] isWellformed(single_families_single_person) = true,
+
+    /* single family in Families */
+    [t102] isWellformed(single_families) = true,
+
+    /* reoccuring person in family in Families */
+    [t103] isWellformed(reocc_in_family) = true,
+
+    /* Empty family in Families */
+    [t104] isWellformed(empty_family) = false,
+
+    /* Same person in 2 different family in Families */
+    [t105] isWellformed(same_person_family) = false,
+
+    /* Empty families */
+    [t106] isWellformed(empty_families) = false,
+    
+
+    /* setUnion */
+    /* setUnion of families  */
+    [t200] setUnion(families) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+
+    /* setUnion of reocc_in__family  */
+    [t201] setUnion(reocc_in_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+    
+    /* setUnion of empty_family  */
+    [t202] setUnion(empty_family) = {p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+    
+    /* setUnion of same_person_family  */
+    [t203] setUnion(same_person_family) = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11},
+    
+    /* setUnion of single_families_single_person  */
+    [t204] setUnion(single_families_single_person) = {p1},
+    
+    /* setUnion of single_families  */
+    [t205] setUnion(single_families) = {p2, p3},
+    
+    /* setUnion of empty_families  */
+    [t206] setUnion(empty_families) = {},
+    
+
+    /* setCard */
+    /* setCard of families  */
+    [t300] setCard(families) = 11,
+
+    /* setCard of reocc_in__family  */
+    [t301] setCard(reocc_in_family) = 11,
+    
+    /* setCard of empty_family  */
+    [t302] setCard(empty_family) = 10,
+    
+    /* setCard of same_person_family  */
+    [t303] setCard(same_person_family) = 12,
+    
+    /* setCard of single_families_single_person  */
+    [t304] setCard(single_families_single_person) = 1,
+    
+    /* setCard of single_families  */
+    [t305] setCard(single_families) = 2,
+    
+    /* setCard of empty_families  */
+    [t306] setCard(empty_families) = 0,
+
+
+    /* shareMember */
+    /* shareMember of f1 and f2  */
+    [t400] shareMember(f1, f2) = false,
+
+    /* shareMember of f1 and f1  */
+    [t401] shareMember(f1, f1) = true,
+
+    /* shareMember of f1 and f5  */
+    [t402] shareMember(f1, f5) = true,
+
+    /* shareMember of f1 and f6  */
+    [t403] shareMember(f1, f6) = false,
+
+    /* shareMember of f1 and f7  */
+    [t404] shareMember(f1, f7) = true,
+
+    /* shareMember of f2 and f3  */
+    [t405] shareMember(f2, f3) = false,
+
+    /* shareMember of f7 and f2  */
+    [t406] shareMember(f7, f2) = true,
+
+    /* shareMember of f3 and f4  */
+    [t407] shareMember(f3, f4) = false,
+
+    /* shareMember of f6 and f6  */
+    [t408] shareMember(f6, f6) = false,
+
+
+    /* plan */
+    /*Plan function with the given example*/
+    [t500] isCorrectPlan(plan(families), families) = true,
+
+    /*Plan function with a family with a repeated person*/
+    [t501] isCorrectPlan(plan(reocc_in_family), reocc_in_family) = true,
+
+    /*Plan function where Families includes an empty family*/
+    [t502] isCorrectPlan(plan(empty_family), empty_family) = false,
+
+    /*Plan function where Families includes a person in two different families*/
+    [t503] isCorrectPlan(plan(same_person_family), same_person_family) = false,
+
+    /*Plan function where Families includes is a single family with a single member*/
+    [t504] isCorrectPlan(plan(single_families_single_person), single_families_single_person) = true,
+
+    /*Plan function where Families is a single family with multiple members*/
+    [t505] isCorrectPlan(plan(single_families), single_families) = true,
+
+    /*Plan function where Families is a single family with multiple members*/
+    [t506] isCorrectPlan(plan(empty_families), empty_families) = false
 
  end
  

@@ -12,19 +12,23 @@ class
      areRelatives(p1, p2, fs) is if exists f : Family :- f isin fs /\ p1 isin f /\ p2 isin f /\ p1 ~= p2 then true else false end,
      
      isWellformed : Families -> Bool                  
-     isWellformed(fs) is 
-     if fs = {} then false elsif card(fs) = 1 then true else
-        let fx: Family :- fx isin fs, 
-            fy: Family :- fy isin fs  
-            in 
-              if {} isin fs then false
-              else (fx ~= fy => ~shareMember(fx, fy))
-              end
-            end 
+     isWellformed(fs) is                                                                 
+     if fs = {} then false elsif card(fs) = 1 then true elsif {} isin fs then false elsif setCard(fs) < card(fs) then false elsif setCard(fs) = card(hd(fs)) then false
+     else setCard(fs) = card(setUnion(fs)) 
      end,
      isCorrectPlan : Plan >< Families -> Bool
      isCorrectPlan(pl, fs) is let t: Table :- t isin pl, p1 : Person :- p1 isin t, p2 : Person :- p2 isin t in ~areRelatives(p1, p2, fs) end,
 
     shareMember : Family >< Family -> Bool
-    shareMember(fx,fy) is if exists p : Person :- p isin fx /\ p isin fy then true else false end
+    shareMember(fx,fy) is if exists p : Person :- p isin fx /\ p isin fy then true else false end,
+
+
+    setUnion: Families -> Family
+    setUnion(fs) is if card(fs) > 0 then hd(fs) union setUnion(fs \ {hd(fs)}) else {} end,
+
+    setCard: Families -> Int
+    setCard(fs) is if card(fs) > 0 then card(hd(fs)) + setCard(fs \ {hd(fs)}) else 0 end 
+
+
+
 end

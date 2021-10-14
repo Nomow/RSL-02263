@@ -55,6 +55,27 @@ structure RT_x_4 =
     
 structure RT_x_5 =
     struct
+        type t = RT_s_1.t * RT_s_1.t;
+        
+        fun equ (x:t, y:t) = RT_s_1.equ(#1 x, #1 y) andalso 
+                             RT_s_1.equ(#2 x, #2 y);
+        
+        fun toString (x:t) = "(" ^
+                             (RT_s_1.toString(#1 x )) ^ "," ^
+                             (RT_s_1.toString(#2 x )) ^
+                             ")";
+        
+        fun toStringSafe x = toString(x())
+          handle RSL.RSL_exception s => (RSL.inc_exception_count(); s);
+        
+        fun typeToString () = "(" ^
+                              (RT_s_1.typeToString ()) ^ " >< " ^
+                              (RT_s_1.typeToString ()) ^
+                              ")";
+    end;
+    
+structure RT_x_6 =
+    struct
         type t = RT_s_2.t * RT_s_2.t * RT_s_2.t;
         
         fun equ (x:t, y:t) = RT_s_2.equ(#1 x, #1 y) andalso 
@@ -77,7 +98,7 @@ structure RT_x_5 =
                               ")";
     end;
     
-structure RT_x_6 =
+structure RT_x_7 =
     struct
         type t = RT_s_2.t * RT_Text.t * RT_s_2.t;
         
@@ -101,7 +122,7 @@ structure RT_x_6 =
                               ")";
     end;
     
-structure RT_x_7 =
+structure RT_x_8 =
     struct
         type t = RT_s_2.t * RT_Text.t * RT_s_1.t;
         
@@ -137,21 +158,23 @@ structure Design =
         
         type Plan_ = RT_s_2.t;
         
+        fun shareMember'183D_ (fx'18AD_, fy'18B0_) = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (29, 27)); if (RT_s_1.R_exists (fn (p'18C1_:RT_Text.t) => RT_s_1.R_mem (p'18C1_, fy'18B0_)) (fx'18AD_)) then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (29, 79)); true) else (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (29, 89)); false));
+        
         fun areRelatives'119A_ (p1'120B_, p2'120F_, fs'1213_) = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (12, 34)); if (RT_s_2.R_exists (fn (f'1224_:RT_s_1.t) => (RT_s_1.R_mem (p1'120B_, f'1224_)) andalso (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (12, 84)); (RT_s_1.R_mem (p2'120F_, f'1224_)) andalso (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (12, 97)); (RSL.C_not RT_Text.equ) (p1'120B_, p2'120F_)))) (fs'1213_)) then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (13, 11)); true) else (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (13, 21)); false));
         
-        fun isCorrectPlan'14BA_ (pl'152C_, fs'1530_) = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (20, 31)); let
-            val t'153B_ = (RT_s_2.R_choose (fn t'153B_ => true) (pl'152C_)); 
-            val p1'1552_ = (RT_s_1.R_choose (fn p1'1552_ => true) (t'153B_)); 
-            val p2'156C_ = (RT_s_1.R_choose (fn p2'156C_ => true) (t'153B_))
+        fun isCorrectPlan'1712_ (pl'1784_, fs'1788_) = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (26, 31)); let
+            val t'1793_ = (RT_s_2.R_choose (fn t'1793_ => true) (pl'1784_)); 
+            val p1'17AA_ = (RT_s_1.R_choose (fn p1'17AA_ => true) (t'1793_)); 
+            val p2'17C4_ = (RT_s_1.R_choose (fn p2'17C4_ => true) (t'1793_))
         in
-            not (((areRelatives'119A_) (p1'1552_, p2'156C_, fs'1530_)))
+            not (((areRelatives'119A_) (p1'17AA_, p2'17C4_, fs'1788_)))
         end);
         
-        fun isWellformed'12C6_ fs'1337_ = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (15, 26)); if RT_Nat.equ (RT_s_2.R_card((fs'1337_)), RT_Int.fromLit "0") then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (15, 47)); false) else if RT_Nat.equ (RT_s_2.R_card((fs'1337_)), RT_Int.fromLit "1") then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (15, 77)); RT_Nat.R_gt (RT_s_1.R_card((RT_s_2.R_hd((fs'1337_)))), RT_Int.fromLit "0")) else (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (15, 99)); let
-            val fx'138B_ = (RT_s_2.R_choose (fn fx'138B_ => true) (fs'1337_)); 
-            val fy'13A5_ = (RT_s_2.R_choose (fn fy'13A5_ => (RSL.C_not RT_s_1.equ) (fy'13A5_, fx'138B_)) (fs'1337_))
+        fun isWellformed'12C6_ fs'1337_ = (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (16, 6)); if RT_s_2.equ (fs'1337_, RT_s_2.R_fromList []) then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (16, 22)); false) else if RT_Nat.equ (RT_s_2.R_card((fs'1337_)), RT_Int.fromLit "1") then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (16, 52)); true) else (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (17, 9)); let
+            val fx'13F9_ = (RT_s_2.R_choose (fn fx'13F9_ => true) (fs'1337_)); 
+            val fy'145D_ = (RT_s_2.R_choose (fn fy'145D_ => true) (fs'1337_))
         in
-            ((RT_s_1.equ (RT_s_1.R_inter (fx'138B_, fy'13A5_), RT_s_1.R_fromList [])) andalso (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (16, 53)); ((RSL.C_not RT_s_1.equ) (fx'138B_, RT_s_1.R_fromList [])) andalso (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (16, 65)); (RSL.C_not RT_s_1.equ) (fy'13A5_, RT_s_1.R_fromList []))))
+            if RT_s_2.R_mem (RT_s_1.R_fromList [], fs'1337_) then (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (20, 34)); false) else (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (21, 20)); (not (((RSL.C_not RT_s_1.equ) (fx'13F9_, fy'145D_))) orelse (R_coverage.cancel(RT_Text.fromLit "Basics.rsl", (21, 35)); not (((shareMember'183D_) (fx'13F9_, fy'145D_))))))
         end));
         
         fun containsFamilyMember'C1E_ (fs'C97_, person'C9B_, table'CA3_) = (R_coverage.cancel(RT_Text.fromLit "Design.rsl", (32, 45)); ((RT_s_1.R_exists (fn (p'CB5_:RT_Text.t) => ((areRelatives'119A_) (person'C9B_, p'CB5_, fs'C97_))) (table'CA3_))));
@@ -179,17 +202,21 @@ R_coverage.mark(RT_Text.fromLit "Design.rsl", (26, 7), (27, 12));
 R_coverage.mark(RT_Text.fromLit "Design.rsl", (23, 14), (24, 9));
 R_coverage.mark(RT_Text.fromLit "Design.rsl", (21, 51), (29, 12));
 R_coverage.mark(RT_Text.fromLit "Design.rsl", (32, 45), (34, 3));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (16, 65), (16, 73));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (16, 53), (16, 73));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (15, 99), (17, 11));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (15, 77), (15, 97));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (15, 47), (15, 53));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (15, 26), (17, 14));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (20, 31), (21, 3));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (21, 35), (21, 55));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (21, 20), (22, 15));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (20, 34), (21, 18));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (17, 9), (24, 6));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (16, 52), (16, 60));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (16, 22), (16, 28));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (16, 6), (24, 9));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (26, 31), (27, 41));
 R_coverage.mark(RT_Text.fromLit "Basics.rsl", (12, 97), (13, 9));
 R_coverage.mark(RT_Text.fromLit "Basics.rsl", (12, 84), (13, 9));
 R_coverage.mark(RT_Text.fromLit "Basics.rsl", (13, 21), (13, 27));
 R_coverage.mark(RT_Text.fromLit "Basics.rsl", (13, 11), (13, 19));
-R_coverage.mark(RT_Text.fromLit "Basics.rsl", (12, 34), (13, 30)));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (12, 34), (13, 30));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (29, 89), (29, 95));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (29, 79), (29, 87));
+R_coverage.mark(RT_Text.fromLit "Basics.rsl", (29, 27), (30, 3)));
 RSL.print_error_count();
 R_coverage.save_marked();
