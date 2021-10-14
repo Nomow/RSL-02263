@@ -10,37 +10,39 @@ class
     post isCorrectPlan(recPlan(fs, fs, {}), fs),
 
     recPlan: Families >< Families >< Plan -~-> Plan
-    recPlan(originalFamilies, fs, p) is let
-				     firstFamily = if fs ~= {} then
-				     hd(fs) else {} end,
-				     firstFamilyMember = if
-				     firstFamily ~= {} then
-				     hd(firstFamily) else "" end
-				  in
-					if fs = {} then
-					   p
-					elsif firstFamily = {} then
-					      recPlan(originalFamilies, fs \ {firstFamily}, p)
-					else
-					      recPlan(originalFamilies, fs \ {firstFamily} union {firstFamily\{firstFamilyMember}}, addToPlan(originalFamilies, firstFamilyMember, p))
-					end
-				  end,
+    recPlan(originalFamilies, fs, p) is 
+	let
+	  firstFamily = 
+	    if fs ~= {} then hd(fs) 
+	    else {} 
+	    end,
+	firstFamilyMember = 
+	  if firstFamily ~= {} then hd(firstFamily) 
+	  else "" 
+          end
+	in
+	if fs = {} then p		
+	elsif firstFamily = {} then
+	  recPlan(originalFamilies, fs \ {firstFamily}, p)
+	else recPlan(originalFamilies, fs \ {firstFamily} union {firstFamily\{firstFamilyMember}}, 
+		     addToPlan(originalFamilies, firstFamilyMember, p))
+        end
+	end,
     
     addToPlan: Families >< Person >< Plan -~-> Plan
     addToPlan(originalFamilies, person, plan) is
-		      let
-			firstTable = if plan ~= {} then hd(plan) else {} end
-		      in
-			if plan = {} then
-		           addToPlan(originalFamilies, person, plan union {{}})
-			elsif containsFamilyMember(originalFamilies, person, firstTable) then
-			   {firstTable} union addToPlan(originalFamilies, person, plan\{firstTable})
-		        else 
-			   plan \ {firstTable} union {(firstTable union {person})}
-		      end 
-		      end,
+      let
+        firstTable = if plan ~= {} then hd(plan) else {} end
+      in
+	if plan = {} then
+	  addToPlan(originalFamilies, person, plan union {{}})
+	elsif containsFamilyMember(originalFamilies, person, firstTable) then
+	  {firstTable} union addToPlan(originalFamilies, person, plan\{firstTable})
+        else plan \ {firstTable} union {(firstTable union {person})}
+	end 
+      end,
 
-	containsFamilyMember: Families >< Person >< Table -> Bool
-	containsFamilyMember(fs, person, table) is (exists p : Person :- p isin table /\ areRelatives(person, p, fs))
-
+     containsFamilyMember: Families >< Person >< Table -> Bool
+     containsFamilyMember(fs, person, table) is 
+       (exists p : Person :- p isin table /\ areRelatives(person, p, fs))
 end
