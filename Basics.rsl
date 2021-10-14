@@ -10,7 +10,8 @@ class
   value 
      areRelatives : Person >< Person >< Families -> Bool 
      areRelatives(p1, p2, fs) is 
-         (exists f : Family :- f isin fs /\ p1 isin f /\ p2 isin f /\ p1 ~= p2),
+         (exists f : Family :- f isin fs /\ p1 isin f 
+                               /\ p2 isin f /\ p1 ~= p2),
      
      isWellformed : Families -> Bool                  
      isWellformed(fs) is                                                                 
@@ -32,12 +33,21 @@ class
        end,
 
     shareMember : Family >< Family -> Bool
-    shareMember(fx,fy) is if exists p : Person :- p isin fx /\ p isin fy then true else false end,
+    shareMember(fx,fy) is 
+      (exists p : Person :- p isin fx /\ p isin fy),
 
 
     setUnion: Families -> Family
-    setUnion(fs) is if card(fs) > 0 then hd(fs) union setUnion(fs \ {hd(fs)}) else {} end,
+    setUnion(fs) is 
+      if card(fs) > 0 
+          then hd(fs) union setUnion(fs \ {hd(fs)}) 
+      else {} 
+      end,
 
     setCard: Families -> Int
-    setCard(fs) is if card(fs) > 0 then card(hd(fs)) + setCard(fs \ {hd(fs)}) else 0 end 
+    setCard(fs) is 
+      if card(fs) > 0 
+        then card(hd(fs)) + setCard(fs \ {hd(fs)}) 
+      else 0 
+      end 
 end
