@@ -9,7 +9,8 @@ class
     
   value 
      areRelatives : Person >< Person >< Families -> Bool 
-     areRelatives(p1, p2, fs) is if exists f : Family :- f isin fs /\ p1 isin f /\ p2 isin f /\ p1 ~= p2 then true else false end,
+     areRelatives(p1, p2, fs) is 
+         (exists f : Family :- f isin fs /\ p1 isin f /\ p2 isin f /\ p1 ~= p2),
      
      isWellformed : Families -> Bool                  
      isWellformed(fs) is                                                                 
