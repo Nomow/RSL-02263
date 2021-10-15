@@ -6,8 +6,8 @@ class
   value
 
     plan: {|fs : Families :- isWellformed(fs) = true|} -~-> Plan
-    plan(fs) is recPlan(fs, fs, {})
-    post isCorrectPlan(recPlan(fs, fs, {}), fs),
+    plan(fs) is recPlan(fs, fs, {}) as p
+    post isCorrectPlan(p, fs),
 
     recPlan: Families >< Families >< Plan -~-> Plan
     recPlan(originalFamilies, fs, p) is 
