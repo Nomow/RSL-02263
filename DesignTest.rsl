@@ -175,7 +175,11 @@ class
     [t505] isCorrectPlan(plan(single_families), single_families) = true,
 
     /*Plan function where Families is a single family with multiple members*/
-    [t506] isCorrectPlan(plan(empty_families), empty_families) = false
+    [t506] isCorrectPlan(plan(empty_families), empty_families) = false,
+
+    /*Plan function where the plan has no relatives in the same
+    familiy, but did not attribute a Table to every Person*/
+    [t507] isCorrectPlan({{p1}}, {{p1}, {p2}}) = false
 
  end
  
