@@ -177,9 +177,18 @@ class
     /*Plan function where Families is a single family with multiple members*/
     [t506] isCorrectPlan(plan(empty_families), empty_families) = false,
 
-    /*Plan function where the plan has no relatives in the same
+    /* isCorrectPlan */
+    /*isCorrectPlan function where the plan has no relatives in the same
     familiy, but did not attribute a Table to every Person*/
-    [t507] isCorrectPlan({{p1}}, {{p1}, {p2}}) = false
+    [t600] isCorrectPlan({{p1}}, {{p1}, {p2}}) = false,
+
+    /*Plan function where the plan has relatives in the same familiy*/
+    [t601] isCorrectPlan({{p1, p2}}, {{p1, p2}}) = false,
+
+    /*Plan function where the plan has relatives in the same
+    familiy and did not attribute a Table to every Person*/
+    [t602] isCorrectPlan({{p1, p2}}, {{p1, p2}, {p3}}) = false
+
 
  end
  
